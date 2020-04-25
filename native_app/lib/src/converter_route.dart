@@ -4,15 +4,12 @@ import 'package:flutter/material.dart';
 class ConverterRoute extends StatelessWidget {
   final List<Unit> units;
   final Color color;
-  final String categoryName;
 
   const ConverterRoute({
     @required this.units,
     @required this.color,
-    @required this.categoryName,
   })  : assert(units != null),
-        assert(color != null),
-        assert(categoryName != null);
+        assert(color != null);
 
   @override
   Widget build(BuildContext context) {
@@ -36,22 +33,8 @@ class ConverterRoute extends StatelessWidget {
       );
     }).toList();
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          categoryName,
-          style: TextStyle(
-            fontSize: 30.0,
-            color: Colors.black,
-          ),
-        ),
-        elevation: 0.0,
-        centerTitle: true,
-        backgroundColor: color,
-      ),
-      body: ListView(
-        children: unitWidgets,
-      ),
+    return ListView(
+      children: unitWidgets,
     );
     ListView(
       children: unitWidgets,
