@@ -26,17 +26,16 @@ class RandomWordState extends State<RandomWords> {
 
   Widget _buildSuggestions() {
     return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemBuilder: (context, i) {
-        if (i.isOdd) return Divider();
+        padding: const EdgeInsets.all(16.0),
+        itemBuilder: (context, i) {
+          if (i.isOdd) return Divider();
 
-        final index = i ~/ 2;
-        if (index >= _suggestions.length) {
-          _suggestions.addAll(generateWordPairs().take(10));
-        }
-        return _buildRow(_suggestions[index]);
-      }
-    );
+          final index = i ~/ 2;
+          if (index >= _suggestions.length) {
+            _suggestions.addAll(generateWordPairs().take(10));
+          }
+          return _buildRow(_suggestions[index]);
+        });
   }
 
   Widget _buildRow(WordPair pair) {
@@ -76,12 +75,10 @@ class RandomWordState extends State<RandomWords> {
               );
             },
           );
-          final divided = ListTile
-            .divideTiles(
-              tiles: tiles,
-              context: context,
-            )
-              .toList();
+          final divided = ListTile.divideTiles(
+            tiles: tiles,
+            context: context,
+          ).toList();
           return Scaffold(
             appBar: AppBar(
               title: Text('Saved Suggestions'),
