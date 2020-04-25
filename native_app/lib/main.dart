@@ -17,9 +17,9 @@ class UnitConverterApp extends StatelessWidget {
         backgroundColor: Colors.green[100],
         body: Center(
           child: Category(
-            _categoryName,
-            _categoryIcon,
-            _categoryColor,
+            name: _categoryName,
+            icon: _categoryIcon,
+            color: _categoryColor,
           ),
         ),
       ),
