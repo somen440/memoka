@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:clearbook/src/converter_route.dart';
+import 'package:clearbook/src/unit.dart';
 import 'package:flutter/material.dart';
 
 final _rowHeight = 100.0;
@@ -8,16 +9,30 @@ class Category extends StatelessWidget {
   final String name;
   final IconData icon;
   final Color color;
+  final List<Unit> units;
 
   const Category({
     Key key,
     @required this.name,
     @required this.icon,
     @required this.color,
+    @required this.units,
   })  : assert(name != null),
         assert(icon != null),
         assert(color != null),
+        assert(units != null),
         super(key: key);
+
+  void _navigateToConverter(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute<bool>(builder: (BuildContext context) {
+      return ConverterRoute(
+        units: units,
+        color: color,
+          categoryName: name,
+      );
+    }));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +46,7 @@ class Category extends StatelessWidget {
           splashColor: this.color,
           onTap: () {
             print('tapped!!');
+            _navigateToConverter(context);
           },
           child: Padding(
             padding: EdgeInsets.all(8.0),
