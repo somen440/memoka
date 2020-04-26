@@ -196,26 +196,6 @@ class _MemocaTabState extends State<_MemocaTab>
 
   @override
   Widget build(BuildContext context) {
-//    return Column(
-//      children: [
-//        const SizedBox(height: 18),
-//        FadeTransition(
-//          child: widget.icon,
-//          opacity: _iconFadeAnimation,
-//        ),
-//        const SizedBox(height: 12),
-//        FadeTransition(
-//          child: SizeTransition(
-//            child: Center(child: ExcludeSemantics(child: widget.titleText)),
-//            axis: Axis.vertical,
-//            axisAlignment: -1,
-//            sizeFactor: _titleSizeAnimation,
-//          ),
-//          opacity: _titleFadeAnimation,
-//        ),
-//        const SizedBox(height: 18),
-//      ],
-//    );
     final width = MediaQuery.of(context).size.width;
     final expandedTitleWidthMultiplier = 2;
     final unitWidth = width / (tabCount + expandedTitleWidthMultiplier);
