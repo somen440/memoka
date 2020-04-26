@@ -1,5 +1,6 @@
-import 'package:clearbook/src/data/colors.dart';
-import 'package:clearbook/src/home.dar.dart';
+import 'package:clearbook/src/common/colors.dart';
+import 'package:clearbook/src/common/options.dart';
+import 'package:clearbook/src/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,7 +12,7 @@ class MemocaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Memoca',
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
       theme: _buildMemocaTheme(),
       home: HomePage(),
     );

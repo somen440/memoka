@@ -1,4 +1,4 @@
-import 'package:clearbook/src/data/colors.dart';
+import 'package:clearbook/src/common/colors.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
