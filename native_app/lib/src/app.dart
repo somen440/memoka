@@ -1,12 +1,8 @@
+import 'package:clearbook/src/data/colors.dart';
 import 'package:clearbook/src/home.dar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-const gray = Color(0xFFD8D8D8);
-const primaryBackground = Color(0xFF33333D);
-const focusColor = Color(0xCCFFFFFF);
-const inputBackground = Color(0xFF26282F);
 
 class MemocaApp extends StatelessWidget {
   const MemocaApp();
@@ -24,17 +20,17 @@ class MemocaApp extends StatelessWidget {
   ThemeData _buildMemocaTheme() {
     final base = ThemeData.dark();
     return ThemeData(
-      scaffoldBackgroundColor: primaryBackground,
-      primaryColor: primaryBackground,
-      focusColor: focusColor,
+      scaffoldBackgroundColor: MemocaColors.primaryBackground,
+      primaryColor: MemocaColors.primaryBackground,
+      focusColor: MemocaColors.focusColor,
       textTheme: _buildMemocaTextTheme(base.textTheme),
       inputDecorationTheme: const InputDecorationTheme(
         labelStyle: TextStyle(
-          color: gray,
+          color: MemocaColors.gray,
           fontWeight: FontWeight.w500,
         ),
         filled: true,
-        fillColor: inputBackground,
+        fillColor: MemocaColors.inputBackground,
         focusedBorder: InputBorder.none,
       ),
     );
