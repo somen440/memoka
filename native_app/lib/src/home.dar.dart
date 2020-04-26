@@ -1,11 +1,12 @@
-import 'package:clearbook/src/game_screen.dart';
-import 'package:clearbook/src/list_screen.dart';
-import 'package:clearbook/src/settings_screen.dart';
-import 'package:clearbook/src/summary_screen.dart';
+import 'package:clearbook/src/tabs/game_screen.dart';
+import 'package:clearbook/src/tabs/list_screen.dart';
+import 'package:clearbook/src/tabs/settings_screen.dart';
+import 'package:clearbook/src/tabs/summary_screen.dart';
+import 'package:clearbook/src/tabs/work_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-const tabCount = 4;
+const tabCount = 5;
 
 class HomePage extends StatefulWidget {
   const HomePage();
@@ -59,6 +60,13 @@ class _HomePageStage extends State<HomePage>
       ),
       _MemocaTab(
         theme: theme,
+        iconData: Icons.group_work,
+        title: 'Work',
+        tabIndex: tabIndex++,
+        tabController: _tabController,
+      ),
+      _MemocaTab(
+        theme: theme,
         iconData: Icons.settings,
         title: 'Settings',
         tabIndex: tabIndex++,
@@ -72,6 +80,7 @@ class _HomePageStage extends State<HomePage>
       SummaryScreen(),
       GameScreen(),
       ListScreen(),
+      WorkScreen(),
       SettingsScreen(),
     ];
   }
