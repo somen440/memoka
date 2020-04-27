@@ -1,12 +1,8 @@
-import 'package:clearbook/src/common/colors.dart';
-import 'package:flutter/material.dart';
+import 'package:clearbook/src/pages/settings_page/settings_item.dart';
+import 'package:clearbook/src/utils/colors.dart';
+import 'package:clearbook/src/widgets/widgets.dart';
 
-class SettingsScreen extends StatefulWidget {
-  @override
-  _SettingsViewState createState() => _SettingsViewState();
-}
-
-class _SettingsViewState extends State<SettingsScreen> {
+class SettingsPage extends StatelessWidget {
   final settings = [
     // todo: 設定の精査
     // Edit summary
@@ -32,7 +28,7 @@ class _SettingsViewState extends State<SettingsScreen> {
           shrinkWrap: true,
           children: [
             for (String title in settings) ...[
-              _SettingsItem(title),
+              SettingsItem(title),
               const Divider(
                 color: MemocaColors.dividerColor,
                 height: 1,
@@ -41,27 +37,6 @@ class _SettingsViewState extends State<SettingsScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _SettingsItem extends StatelessWidget {
-  const _SettingsItem(this.title);
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-      textColor: Colors.white,
-      child: Container(
-        alignment: AlignmentDirectional.centerStart,
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
-        child: Text(title),
-      ),
-      onPressed: () {
-        // todo: Navigator.of(context).push...
-      },
     );
   }
 }

@@ -1,20 +1,128 @@
-import 'package:clearbook/src/common/colors.dart';
-import 'package:clearbook/src/home.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:clearbook/src/model/entities/entities.dart';
+import 'package:clearbook/src/pages/page.dart';
+import 'package:clearbook/src/utils/utils.dart';
+import 'package:clearbook/src/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
-class MemocaApp extends StatelessWidget {
+class MemocaApp extends StatefulWidget {
   const MemocaApp();
 
   @override
+  _MemocaAppState createState() => _MemocaAppState();
+}
+
+class _MemocaAppState extends State<MemocaApp>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+  NewsState _newsState;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: Const.tabCount, vsync: this)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    _newsState = NewsState();
+    _newsState.initializeMessages([
+      'hoge',
+      'foo',
+      'bar',
+    ]);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Memoca',
-      debugShowCheckedModeBanner: false,
-      theme: _buildMemocaTheme(),
-      home: HomePage(),
+    final theme = _buildMemocaTheme();
+    return MultiProvider(
+      providers: [
+        Provider(create: (context) => _newsState),
+      ],
+      child: MaterialApp(
+        title: 'Memoca',
+        debugShowCheckedModeBanner: false,
+        theme: theme,
+        home: Scaffold(
+          body: SafeArea(
+            top: true,
+              bottom: true,
+              child: Theme(
+                data: theme.copyWith(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                ),
+                child: FocusTraversalGroup(
+                  policy: OrderedTraversalPolicy(),
+                  child: Column(
+                    children: [
+                      MemocaTabBar(
+                        tabs: _buildTabs(context: context, theme: theme),
+                        tabController: _tabController,
+                      ),
+                      Expanded(
+                        child: TabBarView(
+                          controller: _tabController,
+                          children: _buildTabViews(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+          ),
+        ),
+      ),
     );
+  }
+
+  List<Widget> _buildTabs({BuildContext context, ThemeData theme}) {
+    var tabIndex = 0;
+    return [
+      MemocaTab(
+        theme: theme,
+        iconData: Icons.equalizer,
+        title: 'Summary',
+        tabIndex: tabIndex++,
+        tabController: _tabController,
+      ),
+      MemocaTab(
+        theme: theme,
+        iconData: Icons.games,
+        title: 'Projects',
+        tabIndex: tabIndex++,
+        tabController: _tabController,
+      ),
+      MemocaTab(
+        theme: theme,
+        iconData: Icons.list,
+        title: 'Games',
+        tabIndex: tabIndex++,
+        tabController: _tabController,
+      ),
+      MemocaTab(
+        theme: theme,
+        iconData: Icons.settings,
+        title: 'Settings',
+        tabIndex: tabIndex++,
+        tabController: _tabController,
+      ),
+    ];
+  }
+
+  List<Widget> _buildTabViews() {
+    return [
+      SummaryPage(),
+      Container(),
+      Container(),
+      Container(),
+    ];
   }
 
   ThemeData _buildMemocaTheme() {

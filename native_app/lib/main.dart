@@ -1,7 +1,4 @@
 import 'package:clearbook/src/app.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:clearbook/src/widgets/widgets.dart';
 
-void main() {
-//  FlareCache.doesPrune = false;
-  runApp(MemocaApp());
-}
+void main() => runApp(MemocaApp());
