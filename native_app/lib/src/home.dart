@@ -47,14 +47,14 @@ class _HomePageStage extends State<HomePage>
       _MemocaTab(
         theme: theme,
         iconData: Icons.games,
-        title: 'Games',
+        title: 'Projects',
         tabIndex: tabIndex++,
         tabController: _tabController,
       ),
       _MemocaTab(
         theme: theme,
         iconData: Icons.list,
-        title: 'List',
+        title: 'Games',
         tabIndex: tabIndex++,
         tabController: _tabController,
       ),

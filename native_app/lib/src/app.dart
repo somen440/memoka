@@ -1,5 +1,4 @@
 import 'package:clearbook/src/common/colors.dart';
-import 'package:clearbook/src/common/options.dart';
 import 'package:clearbook/src/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

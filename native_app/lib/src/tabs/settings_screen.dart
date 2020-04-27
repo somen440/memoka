@@ -9,11 +9,19 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsViewState extends State<SettingsScreen> {
   final settings = [
     // todo: 設定の精査
-    '通知',
-    '連携',
-    'データ管理',
-    '初期化',
-    '利用規約',
+    // Edit summary
+    //  - 並び順
+    //  - 表示数
+    //  - 表示/非表示の切り替え
+    'Edit Summary',
+    // Link with Twitter
+    //  - 特定のプロジェクトとタグを紐付ける
+    'Link with Twitter',
+    // Initialize
+    //  - キャッシュ強制削除
+    //  - データ削除
+    'Initialize',
+    '利用規約とプライバシーポリシー',
   ];
 
   @override
