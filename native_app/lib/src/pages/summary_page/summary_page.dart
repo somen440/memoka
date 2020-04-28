@@ -7,16 +7,13 @@ import 'package:provider/provider.dart';
 class SummaryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final news = Provider.of<NewsState>(context);
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Column(
           children: [
-            Consumer<NewsState>(
-              builder: (context, news, _) {
-                return NewsView(newsList: news.messages.sublist(0, 1) ?? []);
-              },
-            ),
+            NewsView(newsList: news.messages.sublist(0, 1) ?? []),
             const SizedBox(height: 12),
             _SummaryScreenGrid(spacing: 12),
           ],
@@ -37,44 +34,41 @@ class _SummaryScreenGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SummaryState>(
-      builder: (context, summary, _) {
-        return Wrap(
-          runSpacing: spacing,
-          children: [
-            Container(
-              width: double.infinity,
-              child: MemocaCard(
-                title: '総プレイ時間',
-                main: '77777 h',
-                items: _buildItems(summary.playTimeList ?? []),
-                buttonSemanticsLabel: 'すべてを表示',
-                order: 1,
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              child: MemocaCard(
-                title: 'メモ数',
-                main: '123 個',
-                items: _buildItems(summary.memoNumList ?? []),
-                buttonSemanticsLabel: 'すべてを表示',
-                order: 2,
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              child: MemocaCard(
-                title: 'Todo 消化率',
-                main: '67.8 %',
-                items: _buildItems(summary.todoRateList ?? []),
-                buttonSemanticsLabel: 'すべてを表示',
-                order: 3,
-              ),
-            ),
-          ],
-        );
-      },
+    final summary = Provider.of<SummaryState>(context);
+    return Wrap(
+      runSpacing: spacing,
+      children: [
+        Container(
+          width: double.infinity,
+          child: MemocaCard(
+            title: '総プレイ時間',
+            main: '77777 h',
+            items: _buildItems(summary.playTimeList ?? []),
+            buttonSemanticsLabel: 'すべてを表示',
+            order: 1,
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          child: MemocaCard(
+            title: 'メモ数',
+            main: '123 個',
+            items: _buildItems(summary.memoNumList ?? []),
+            buttonSemanticsLabel: 'すべてを表示',
+            order: 2,
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          child: MemocaCard(
+            title: 'Todo 消化率',
+            main: '67.8 %',
+            items: _buildItems(summary.todoRateList ?? []),
+            buttonSemanticsLabel: 'すべてを表示',
+            order: 3,
+          ),
+        ),
+      ],
     );
   }
 

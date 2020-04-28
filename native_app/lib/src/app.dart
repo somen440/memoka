@@ -102,8 +102,8 @@ class _MemocaAppState extends State<MemocaApp>
     final theme = _buildMemocaTheme();
     return MultiProvider(
       providers: [
-        Provider(create: (context) => _newsState),
-        Provider(create: (context) => _summaryState),
+        ChangeNotifierProvider(create: (_) => _newsState),
+        ChangeNotifierProvider(create: (_) => _summaryState),
       ],
       child: MaterialApp(
         title: 'Memoca',
