@@ -15,6 +15,7 @@ class _MemocaAppState extends State<MemocaApp>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
   NewsState _newsState;
+  SummaryState _summaryState;
 
   @override
   void initState() {
@@ -26,10 +27,68 @@ class _MemocaAppState extends State<MemocaApp>
 
     _newsState = NewsState();
     _newsState.initializeMessages([
-      'hoge',
-      'foo',
-      'bar',
+      'FF7 の発売日です。',
+      'FF7 の発売日です。',
+      'FF7 の発売日です。',
     ]);
+
+    final playTimeList = [
+      Summary(
+        title: 'FF1',
+        subTitle: '2019/01/01',
+        result: '11.1 h',
+      ),
+      Summary(
+        title: 'FF2',
+        subTitle: '2019/02/02',
+        result: '22.2 h',
+      ),
+      Summary(
+        title: 'FF3',
+        subTitle: '2019/03/03',
+        result: '33.3 h',
+      ),
+    ];
+    final todoRateList = [
+      Summary(
+        title: 'FF1',
+        subTitle: '2019/01/01',
+        result: '11.1 %',
+      ),
+      Summary(
+        title: 'FF2',
+        subTitle: '2019/02/02',
+        result: '22.2 %',
+      ),
+      Summary(
+        title: 'FF3',
+        subTitle: '2019/03/03',
+        result: '33.3 %',
+      ),
+    ];
+    final memoNumList = [
+      Summary(
+        title: 'FF1',
+        subTitle: '2019/01/01',
+        result: '11 個',
+      ),
+      Summary(
+        title: 'FF2',
+        subTitle: '2019/02/02',
+        result: '22 個',
+      ),
+      Summary(
+        title: 'FF3',
+        subTitle: '2019/03/03',
+        result: '33 個',
+      ),
+    ];
+    _summaryState = SummaryState();
+    _summaryState.initialize(
+      playTimeList,
+      todoRateList,
+      memoNumList,
+    );
   }
 
   @override
@@ -44,6 +103,7 @@ class _MemocaAppState extends State<MemocaApp>
     return MultiProvider(
       providers: [
         Provider(create: (context) => _newsState),
+        Provider(create: (context) => _summaryState),
       ],
       child: MaterialApp(
         title: 'Memoca',
@@ -52,30 +112,30 @@ class _MemocaAppState extends State<MemocaApp>
         home: Scaffold(
           body: SafeArea(
             top: true,
-              bottom: true,
-              child: Theme(
-                data: theme.copyWith(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                ),
-                child: FocusTraversalGroup(
-                  policy: OrderedTraversalPolicy(),
-                  child: Column(
-                    children: [
-                      MemocaTabBar(
-                        tabs: _buildTabs(context: context, theme: theme),
-                        tabController: _tabController,
+            bottom: true,
+            child: Theme(
+              data: theme.copyWith(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+              ),
+              child: FocusTraversalGroup(
+                policy: OrderedTraversalPolicy(),
+                child: Column(
+                  children: [
+                    MemocaTabBar(
+                      tabs: _buildTabs(context: context, theme: theme),
+                      tabController: _tabController,
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: _buildTabViews(),
                       ),
-                      Expanded(
-                        child: TabBarView(
-                          controller: _tabController,
-                          children: _buildTabViews(),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
+            ),
           ),
         ),
       ),
