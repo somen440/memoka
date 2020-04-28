@@ -14,7 +14,7 @@ class SummaryPage extends StatelessWidget {
           children: [
             Consumer<NewsState>(
               builder: (context, news, _) {
-                return NewsView(newsList: news.messages.sublist(0, 1));
+                return NewsView(newsList: news.messages.sublist(0, 1) ?? []);
               },
             ),
             const SizedBox(height: 12),
@@ -47,7 +47,7 @@ class _SummaryScreenGrid extends StatelessWidget {
               child: MemocaCard(
                 title: '総プレイ時間',
                 main: '77777 h',
-                items: _buildItems(summary.playTimeList),
+                items: _buildItems(summary.playTimeList ?? []),
                 buttonSemanticsLabel: 'すべてを表示',
                 order: 1,
               ),
@@ -57,7 +57,7 @@ class _SummaryScreenGrid extends StatelessWidget {
               child: MemocaCard(
                 title: 'メモ数',
                 main: '123 個',
-                items: _buildItems(summary.memoNumList),
+                items: _buildItems(summary.memoNumList ?? []),
                 buttonSemanticsLabel: 'すべてを表示',
                 order: 2,
               ),
@@ -67,7 +67,7 @@ class _SummaryScreenGrid extends StatelessWidget {
               child: MemocaCard(
                 title: 'Todo 消化率',
                 main: '67.8 %',
-                items: _buildItems(summary.todoRateList),
+                items: _buildItems(summary.todoRateList ?? []),
                 buttonSemanticsLabel: 'すべてを表示',
                 order: 3,
               ),
