@@ -17,6 +17,14 @@ class MemocaColors {
   static const cardBackground = Color(0x03FEFEFE);
   static const white60 = Color(0x99FFFFFF);
 
+  static const sw = Color(0xffD90012);
+  static const ps4 = Color(0xff4149A5);
+  static const xbox = Color(0xff255041);
+  static const pc = Color(0xff2A2D6F);
+  static const ios = Colors.black;
+  static const android = Color(0xff7FB117);
+  static const etc = Color(0xff138CE3);
+
   static Color cycledColor(int i) {
     return colors[i % colors.length];
   }

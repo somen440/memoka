@@ -1,4 +1,6 @@
 export 'package:flutter/material.dart';
+export 'package:provider/provider.dart';
+export 'package:badges/badges.dart';
 
 export 'card/card.dart';
 export 'card/card_item.dart';
