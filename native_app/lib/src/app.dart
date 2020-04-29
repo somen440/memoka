@@ -14,8 +14,6 @@ class MemocaApp extends StatefulWidget {
 class _MemocaAppState extends State<MemocaApp>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
-  NewsState _newsState;
-  SummaryState _summaryState;
 
   @override
   void initState() {
@@ -24,71 +22,6 @@ class _MemocaAppState extends State<MemocaApp>
       ..addListener(() {
         setState(() {});
       });
-
-    _newsState = NewsState();
-    _newsState.initializeMessages([
-      'FF7 の発売日です。',
-      'FF7 の発売日です。',
-      'FF7 の発売日です。',
-    ]);
-
-    final playTimeList = [
-      Summary(
-        title: 'FF1',
-        subTitle: '2019/01/01',
-        result: '11.1 h',
-      ),
-      Summary(
-        title: 'FF2',
-        subTitle: '2019/02/02',
-        result: '22.2 h',
-      ),
-      Summary(
-        title: 'FF3',
-        subTitle: '2019/03/03',
-        result: '33.3 h',
-      ),
-    ];
-    final todoRateList = [
-      Summary(
-        title: 'FF1',
-        subTitle: '2019/01/01',
-        result: '11.1 %',
-      ),
-      Summary(
-        title: 'FF2',
-        subTitle: '2019/02/02',
-        result: '22.2 %',
-      ),
-      Summary(
-        title: 'FF3',
-        subTitle: '2019/03/03',
-        result: '33.3 %',
-      ),
-    ];
-    final memoNumList = [
-      Summary(
-        title: 'FF1',
-        subTitle: '2019/01/01',
-        result: '11 個',
-      ),
-      Summary(
-        title: 'FF2',
-        subTitle: '2019/02/02',
-        result: '22 個',
-      ),
-      Summary(
-        title: 'FF3',
-        subTitle: '2019/03/03',
-        result: '33 個',
-      ),
-    ];
-    _summaryState = SummaryState();
-    _summaryState.initialize(
-      playTimeList,
-      todoRateList,
-      memoNumList,
-    );
   }
 
   @override
@@ -102,8 +35,8 @@ class _MemocaAppState extends State<MemocaApp>
     final theme = _buildMemocaTheme();
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => _newsState),
-        ChangeNotifierProvider(create: (_) => _summaryState),
+        ChangeNotifierProvider(create: (_) => NewsState()),
+        ChangeNotifierProvider(create: (_) => SummaryState()),
       ],
       child: MaterialApp(
         title: 'Memoca',
