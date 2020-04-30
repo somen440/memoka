@@ -27,6 +27,7 @@ class Game {
   final DateTime releaseDate;
 
   String get priceAsString => "¥ " + price.toString() + " 円";
+
   Color get color => _Platform.PS4 == platform
       ? MemocaColors.ps4
       : _Platform.Xbox == platform
@@ -38,7 +39,11 @@ class Game {
                   : _Platform.Android == platform
                       ? MemocaColors.android
                       : MemocaColors.etc;
+
   String get platformAsString => platform.toString().split('.')[1];
+
+  static List<String> get platforms =>
+      _Platform.values.map((e) => e.toString().split('.')[1]).toList();
 }
 
 class GameListState with ChangeNotifier {
@@ -81,5 +86,22 @@ class GameListState with ChangeNotifier {
       ),
     ];
     notifyListeners();
+  }
+}
+
+class AddGameFormState with ChangeNotifier {
+  AddGameFormState() {
+    initialize();
+  }
+
+  String _selectedPlatform;
+  String get selectedPlatform => _selectedPlatform;
+
+  void updateSelectedPlatform(String platform) {
+    _selectedPlatform = platform;
+  }
+
+  void initialize() {
+    _selectedPlatform = 'Android';
   }
 }

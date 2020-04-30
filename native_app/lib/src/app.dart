@@ -39,6 +39,7 @@ class _MemocaAppState extends State<MemocaApp>
         ChangeNotifierProvider(create: (_) => NewsState()),
         ChangeNotifierProvider(create: (_) => SummaryState()),
         ChangeNotifierProvider(create: (_) => GameListState()),
+        ChangeNotifierProvider(create: (_) => AddGameFormState()),
       ],
       child: MaterialApp(
         title: 'Memoca',
