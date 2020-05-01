@@ -9,6 +9,7 @@ class AddGamesForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<AddGameFormState>(context);
     return Scaffold(
         appBar: AppBar(
           title: Text('発売ソフト追加'),
@@ -21,16 +22,48 @@ class AddGamesForm extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               children: [
                 TextFormField(
+                  initialValue: Provider.of<AddGameFormState>(context).title,
                   decoration: const InputDecoration(
                     labelText: 'Title',
                   ),
+                  autovalidate: false,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'タイトルを入力してください。';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    Provider.of<AddGameFormState>(
+                      context,
+                      listen: false,
+                    ).updateTitle(value);
+                  },
                 ),
                 Padding(padding: EdgeInsets.all(8)),
                 TextFormField(
+                  initialValue:
+                      Provider.of<AddGameFormState>(context).price.toString(),
                   decoration: const InputDecoration(
                     labelText: 'Price',
                   ),
                   keyboardType: TextInputType.number,
+                  autovalidate: false,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return '価格を入力してください';
+                    }
+                    if (int.tryParse(value) < 0) {
+                      return '0 以上で入力してください';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    Provider.of<AddGameFormState>(
+                      context,
+                      listen: false,
+                    ).updatePrice(int.tryParse(value));
+                  },
                 ),
                 Padding(padding: EdgeInsets.all(8)),
                 FormField(
@@ -62,45 +95,65 @@ class AddGamesForm extends StatelessWidget {
                                   value: e,
                                 ))
                             .toList(),
-                        onChanged: (String value) =>
-                            Provider.of<AddGameFormState>(context,
-                                    listen: false)
-                                .updateSelectedPlatform(value),
+                        onChanged: (value) {
+                          Provider.of<AddGameFormState>(
+                            context,
+                            listen: false,
+                          ).updateSelectedPlatform(value);
+                        },
                       ),
                     );
                   },
                 ),
                 Padding(padding: EdgeInsets.all(8)),
                 FormField(
-                    builder: (FormFieldState state) {
-                      return InputDecorator(
-                        decoration: InputDecoration(
-                          labelText: '発売日',
-                        ),
-                        child: DateTimeField(
-                          initialValue: DateTime.now(),
-                          format: DateFormat("yyyy-MM-dd"),
-                          onShowPicker: (context, currentValue) {
-                            return showDatePicker(
-                              context: context,
-                              initialDate: currentValue,
-                              firstDate: DateTime(1900),
-                              lastDate: DateTime(2100),
-                            );
-                          },
-                        ),
-                      );
-                    },
+                  builder: (FormFieldState state) {
+                    return InputDecorator(
+                      decoration: InputDecoration(
+                        labelText: '発売日',
+                      ),
+                      child: DateTimeField(
+                        initialValue:
+                            Provider.of<AddGameFormState>(context).releaseDate,
+                        format: DateFormat("yyyy-MM-dd"),
+                        onShowPicker: (context, currentValue) {
+                          return showDatePicker(
+                            context: context,
+                            initialDate: currentValue,
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime(2100),
+                          );
+                        },
+                        onChanged: (value) {
+                          Provider.of<AddGameFormState>(
+                            context,
+                            listen: false,
+                          ).updateReleaseDate(value);
+                        },
+                      ),
+                    );
+                  },
                 ),
                 Padding(padding: EdgeInsets.all(8)),
                 new Container(
                   child: new RaisedButton(
-                    child: const Text('Submit'),
+                    child: const Text('追加'),
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
-                        print('ok');
+                        final game = Provider.of<AddGameFormState>(
+                          context,
+                          listen: false,
+                        ).toGame();
+                        Provider.of<GameListState>(
+                          context,
+                          listen: false,
+                        ).addGame(game);
+                        Provider.of<AddGameFormState>(
+                          context,
+                          listen: false,
+                        ).initialize();
+                        Navigator.pop(context);
                       }
-                      print('ng');
                     },
                   ),
                 ),

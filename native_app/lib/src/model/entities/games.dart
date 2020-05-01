@@ -13,11 +13,11 @@ enum _Platform {
 
 class Game {
   const Game({
-    this.title,
-    this.platform,
-    this.price,
-    this.image,
-    this.releaseDate,
+    @required this.title,
+    @required this.platform,
+    @required this.price,
+    @required this.image,
+    @required this.releaseDate,
   });
 
   final String title;
@@ -44,6 +44,10 @@ class Game {
 
   static List<String> get platforms =>
       _Platform.values.map((e) => e.toString().split('.')[1]).toList();
+
+  static _Platform asPlatform(String platform) {
+    return _Platform.Android;
+  }
 }
 
 class GameListState with ChangeNotifier {
@@ -57,6 +61,11 @@ class GameListState with ChangeNotifier {
         _gameList,
         (Game obj) => obj.releaseDate,
       );
+
+  void addGame(Game game) {
+    _gameList.add(game);
+    notifyListeners();
+  }
 
   void fetchDummy() {
     _gameList = [
@@ -94,14 +103,53 @@ class AddGameFormState with ChangeNotifier {
     initialize();
   }
 
+  String _title;
+  String get title => _title;
+
+  int _price;
+  int get price => _price;
+
   String _selectedPlatform;
   String get selectedPlatform => _selectedPlatform;
 
+  DateTime _releaseDate;
+  DateTime get releaseDate => _releaseDate;
+
+  void updateTitle(String title) {
+    _title = title;
+    notifyListeners();
+  }
+
+  void updatePrice(int price) {
+    _price = price;
+    notifyListeners();
+  }
+
   void updateSelectedPlatform(String platform) {
     _selectedPlatform = platform;
+    notifyListeners();
+  }
+
+  void updateReleaseDate(DateTime releaseDate) {
+    _releaseDate = releaseDate;
+    notifyListeners();
+  }
+
+  Game toGame() {
+    return Game(
+      title: _title,
+      platform: Game.asPlatform(_selectedPlatform),
+      price: _price,
+      image: 'http://design-ec.com/d/e_others_50/l_e_others_500.png',
+      releaseDate: _releaseDate,
+    );
   }
 
   void initialize() {
-    _selectedPlatform = 'Android';
+    _title = '';
+    _price = 0;
+    _selectedPlatform = 'Etc';
+    _releaseDate = DateTime.now();
+    notifyListeners();
   }
 }
