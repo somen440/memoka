@@ -46,7 +46,19 @@ class Game {
       _Platform.values.map((e) => e.toString().split('.')[1]).toList();
 
   static _Platform asPlatform(String platform) {
-    return _Platform.Android;
+    switch (platform) {
+      case "Android":
+        return _Platform.Android;
+      case "iOS":
+        return _Platform.iOS;
+      case "Switch":
+        return _Platform.Switch;
+      case "PS4":
+        return _Platform.PS4;
+      case "Xbox":
+        return _Platform.Xbox;
+    }
+    return _Platform.Etc;
   }
 }
 
