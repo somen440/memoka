@@ -32,6 +32,7 @@ dependencies:
   badges: ^1.1.1
   datetime_picker_formfield: ^1.0.0
   path_provider: ^1.6.7
+  image_picker: ^0.6.5+3
 
 dev_dependencies:
   flutter_test:
@@ -79,3 +80,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  assets:
+    - assets/images/

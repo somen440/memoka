@@ -35,7 +35,9 @@ class GameItem extends StatelessWidget {
                       image: DecorationImage(
                         fit: BoxFit.fitWidth,
                         alignment: FractionalOffset.center,
-                        image: NetworkImage(game.image),
+                        image: game.image == null
+                          ? AssetImage('assets/images/no-image.png')
+                          : Image.file(game.image).image,
                       ),
                     ),
                   ),

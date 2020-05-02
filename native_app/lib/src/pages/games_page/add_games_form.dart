@@ -1,7 +1,9 @@
 import 'package:clearbook/src/model/model.dart';
+import 'package:clearbook/src/utils/utils.dart';
 import 'package:clearbook/src/widgets/widgets.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class AddGamesForm extends StatelessWidget {
@@ -135,9 +137,29 @@ class AddGamesForm extends StatelessWidget {
                   },
                 ),
                 Padding(padding: EdgeInsets.all(8)),
-                new Container(
-                  child: new RaisedButton(
+                Provider.of<AddGameFormState>(context).image == null
+                    ? Text('no image selected')
+                    : Image.file(Provider.of<AddGameFormState>(context).image),
+                FlatButton(
+                  child: Text('image'),
+                  color: MemocaColors.dividerColor,
+                  textColor: Colors.white,
+                  onPressed: () async {
+                    final image = await ImagePicker.pickImage(
+                      source: ImageSource.gallery,
+                    );
+                    Provider.of<AddGameFormState>(
+                      context,
+                      listen: false,
+                    ).updateImage(image);
+                  },
+                ),
+                Padding(padding: EdgeInsets.all(8)),
+                Container(
+                  child: FlatButton(
                     child: const Text('追加'),
+                    color: MemocaColors.dividerColor,
+                    textColor: Colors.white,
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
                         final game = Provider.of<AddGameFormState>(

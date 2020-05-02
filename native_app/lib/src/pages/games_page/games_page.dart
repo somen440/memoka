@@ -14,11 +14,11 @@ class GamesPage extends StatelessWidget {
     Provider.of<GameListState>(context)
         .gameListGroupedByReleaseDate
         .forEach((key, value) {
-          gamesViewList.add(GamesView(
-              dateTime: key,
-              items: value.map((e) => GameItem(game: e)).toList(),
-              order: order++,
-          ));
+      gamesViewList.add(GamesView(
+        dateTime: key,
+        items: value.map((e) => GameItem(game: e)).toList(),
+        order: order++,
+      ));
     });
 
     return Scaffold(
@@ -34,11 +34,13 @@ class GamesPage extends StatelessWidget {
                 ],
               ))),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
                 builder: (context) => AddGamesForm(),
-            ));
-          },
+              ));
+        },
         child: Icon(Icons.add),
         backgroundColor: MemocaColors.etc,
       ),

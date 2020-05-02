@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:clearbook/src/utils/utils.dart';
 import 'package:collection/collection.dart';
 import 'package:clearbook/src/widgets/widgets.dart';
@@ -23,7 +26,7 @@ class Game {
   final String title;
   final _Platform platform;
   final int price;
-  final String image;
+  final File image;
   final DateTime releaseDate;
 
   String get priceAsString => "¥ " + price.toString() + " 円";
@@ -85,24 +88,21 @@ class GameListState with ChangeNotifier {
         title: 'Moving Out',
         platform: _Platform.Switch,
         price: 4280,
-        image:
-            'https://cache.famitsu.com/review/title/0000/0000/0011/4735/jacket/m.jpg',
+        image: null,
         releaseDate: DateTime(2020, 4, 29),
       ),
       Game(
         title: '聖剣伝説3 トライアルズ オブ マナ',
         platform: _Platform.Switch,
         price: 5980,
-        image:
-            'https://cache.famitsu.com/review/title/0000/0000/0011/2293/jacket/m.jpg',
+        image: null,
         releaseDate: DateTime(2020, 4, 24),
       ),
       Game(
         title: 'PREDATOR HUNTING GROUNDS（プレデター ハンティング グラウンズ）',
         platform: _Platform.PS4,
         price: 4900,
-        image:
-            'https://cache.famitsu.com/review/title/0000/0000/0011/4326/jacket/m.jpg',
+        image: null,
         releaseDate: DateTime(2020, 4, 24),
       ),
     ];
@@ -127,6 +127,9 @@ class AddGameFormState with ChangeNotifier {
   DateTime _releaseDate;
   DateTime get releaseDate => _releaseDate;
 
+  File _image;
+  File get image => _image;
+
   void updateTitle(String title) {
     _title = title;
     notifyListeners();
@@ -147,13 +150,22 @@ class AddGameFormState with ChangeNotifier {
     notifyListeners();
   }
 
+  void updateImage(File image) {
+    _image = image;
+    notifyListeners();
+  }
+
   Game toGame() {
     return Game(
       title: _title,
       platform: Game.asPlatform(_selectedPlatform),
       price: _price,
-      image: 'http://design-ec.com/d/e_others_50/l_e_others_500.png',
-      releaseDate: _releaseDate,
+      image: _image,
+      releaseDate: DateTime(
+        _releaseDate.year,
+        _releaseDate.month,
+        _releaseDate.day,
+      ),
     );
   }
 
@@ -162,6 +174,7 @@ class AddGameFormState with ChangeNotifier {
     _price = 0;
     _selectedPlatform = 'Etc';
     _releaseDate = DateTime.now();
+    _image = null;
     notifyListeners();
   }
 }
