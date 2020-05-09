@@ -10,7 +10,7 @@ class TodoView extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('Task'),
+        title: Text('Todo'),
       ),
       body: ListView(
         children: [
@@ -57,14 +57,30 @@ class TodoView extends StatelessWidget {
             color: MemocaColors.dividerColor,
           ),
           ListTile(
-            leading: Icon(
-              Icons.add,
-              color: Colors.white,
+            leading: InkWell(
+              onTap: () {
+                Provider.of<TodoState>(
+                  context,
+                  listen: false,
+                ).addTask('');
+              },
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
             ),
-            title: Opacity(
-              opacity: 0.5,
-              child: const Text(
-                'リストアイテム',
+            title: InkWell(
+              onTap: () {
+                Provider.of<TodoState>(
+                  context,
+                  listen: false,
+                ).addTask('');
+              },
+              child: Opacity(
+                opacity: 0.5,
+                child: const Text(
+                  'リストアイテム',
+                ),
               ),
             ),
           ),

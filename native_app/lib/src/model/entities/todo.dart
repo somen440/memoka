@@ -48,6 +48,17 @@ class TodoState with ChangeNotifier {
     notifyListeners();
   }
 
+  void addTask(String title) {
+    final newId = _taskList.length + 1;
+    _taskList[newId] = _Task(
+      id: newId,
+      title: title,
+      done: false,
+    );
+    updateEditTaskId(newId);
+    notifyListeners();
+  }
+
   void done(int id) {
     _taskList.update(
       id,
