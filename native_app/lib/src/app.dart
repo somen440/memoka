@@ -1,4 +1,5 @@
 import 'package:clearbook/src/model/entities/entities.dart';
+import 'package:clearbook/src/model/entities/timer.dart';
 import 'package:clearbook/src/pages/games_page/games_page.dart';
 import 'package:clearbook/src/pages/page.dart';
 import 'package:clearbook/src/utils/utils.dart';
@@ -40,6 +41,7 @@ class _MemocaAppState extends State<MemocaApp>
         ChangeNotifierProvider(create: (_) => SummaryState()),
         ChangeNotifierProvider(create: (_) => GameListState()),
         ChangeNotifierProvider(create: (_) => AddGameFormState()),
+        ChangeNotifierProvider(create: (_) => TimerState()),
       ],
       child: MaterialApp(
         title: 'Memoca',
@@ -115,7 +117,7 @@ class _MemocaAppState extends State<MemocaApp>
   List<Widget> _buildTabViews() {
     return [
       SummaryPage(),
-      Container(),
+      ProjectsPage(),
       GamesPage(),
       SettingsPage(),
     ];
