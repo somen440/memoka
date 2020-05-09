@@ -20,55 +20,71 @@ class TodoState with ChangeNotifier {
     fetchDummyTaskList();
   }
 
-  List<_Task> _taskList;
-  List<_Task> get taskListWithNotDone => _taskList
+  Map<int, _Task> _taskList;
+  List<_Task> get taskListWithNotDone => _taskList.values
       .where(
         (e) => !e.done,
       )
       .toList();
-  List<_Task> get taskListWithDone => _taskList
+  List<_Task> get taskListWithDone => _taskList.values
       .where(
         (e) => e.done,
       )
       .toList();
-  int get taskWithDoneCount => _taskList
+  int get taskWithDoneCount => _taskList.values
       .where(
         (e) => e.done,
       )
       .length;
 
   void fetchDummyTaskList() {
-    _taskList = [
-      _Task(id: 1, title: 'task1', done: false),
-      _Task(id: 2, title: 'task2', done: false),
-      _Task(id: 3, title: 'task3', done: true),
-      _Task(id: 4, title: 'task4', done: false),
-      _Task(id: 5, title: 'task5', done: true),
-    ];
+    _taskList = {
+      1: _Task(id: 1, title: 'task1', done: false),
+      2: _Task(id: 2, title: 'task2', done: false),
+      3: _Task(id: 3, title: 'task3', done: true),
+      4: _Task(id: 4, title: 'task4', done: false),
+      5: _Task(id: 5, title: 'task5', done: true),
+    };
     notifyListeners();
   }
 
   void done(int id) {
-    _changeDone(id, true);
+    _taskList.update(
+      id,
+      (value) => _Task(
+        id: value.id,
+        title: value.title,
+        done: true,
+      ),
+    );
+    _clearEditTaskId();
     notifyListeners();
   }
 
   void notDone(int id) {
-    _changeDone(id, false);
+    _taskList.update(
+      id,
+      (value) => _Task(
+        id: value.id,
+        title: value.title,
+        done: false,
+      ),
+    );
+    _clearEditTaskId();
     notifyListeners();
   }
 
-  void _changeDone(int id, bool done) {
-    _taskList = _taskList.map((e) {
-      if (e.id == id) {
-        return _Task(
-          id: e.id,
-          title: e.title,
-          done: done,
-        );
-      }
-      return e;
-    }).toList();
+  void updateTaskTitle(int id, String title) {
+    _taskList.update(
+      id,
+      (value) => _Task(
+        id: value.id,
+        title: title,
+        done: value.done,
+      ),
+    );
+    _clearEditTaskId();
+    notifyListeners();
   }
 
   bool _isShowTaskWithDone = true;
@@ -76,6 +92,19 @@ class TodoState with ChangeNotifier {
 
   void switchTaskWithDone() {
     _isShowTaskWithDone = !_isShowTaskWithDone;
+    _clearEditTaskId();
+    notifyListeners();
+  }
+
+  int _editTaskId = 0;
+  int get editTaskId => _editTaskId;
+
+  void _clearEditTaskId() {
+    _editTaskId = 0;
+  }
+
+  void updateEditTaskId(int id) {
+    _editTaskId = id;
     notifyListeners();
   }
 }

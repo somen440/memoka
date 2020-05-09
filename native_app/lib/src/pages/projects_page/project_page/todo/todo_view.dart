@@ -31,9 +31,25 @@ class TodoView extends StatelessWidget {
                     ),
                     title: InkWell(
                       onTap: () {
-                        print('tap text');
+                        Provider.of<TodoState>(
+                          context,
+                          listen: false,
+                        ).updateEditTaskId(e.id);
                       },
-                      child: Text(e.title),
+                      child: Provider.of<TodoState>(context).editTaskId == e.id
+                          ? TextFormField(
+                              initialValue: e.title,
+                              onFieldSubmitted: (title) {
+                                Provider.of<TodoState>(
+                                  context,
+                                  listen: false,
+                                ).updateTaskTitle(
+                                  e.id,
+                                  title,
+                                );
+                              },
+                            )
+                          : Text(e.title),
                     ),
                   ))
               .toList(),
